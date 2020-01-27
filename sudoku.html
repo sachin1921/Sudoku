@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>BrightSudoku</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="confetti.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,800" rel="stylesheet">
+
+</head>
+<body>
+	
+	<canvas height='1' id='confetti' width='1' style="display:none;z-index:-1;"></canvas>
+	<h1 id="title" class="text-center" style="margin-bottom: 50px;"><b style="font-weight: 600; color: #7FEBD0; ">Bright</b>Sudoku</h1>
+	<!-- <h2 class="text-center">03:15</h2> -->
+	
+	<div id="chooseDifficulty" class="difficulty text-center">
+		<input value="easy" name="difficulty" type="radio" checked> Easy
+		<input value="medium" name="difficulty" style="margin-left: 10px;" type="radio"> Medium
+		<input value="hard" name="difficulty" style="margin-left: 10px;" type="radio"> Hard
+	</div>
+	
+	<h2 id="feedback" class="text-center" style="font-weight: 600; "></h2>
+	<div class="puzzle-wrapper" style="display: flex; margin:20px;justify-content: center;align-items:center;">
+		
+		<div id="puzzle-container" style="z-index:1;">
+			<table>
+				<tr>
+					<td id="0-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="0-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="0-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="0-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="0-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="0-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="0-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="0-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="0-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="1-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="1-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="1-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="1-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="1-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="1-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="1-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="1-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="1-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="2-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="2-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="2-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="2-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="2-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="2-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="2-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="2-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="2-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="3-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="3-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="3-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="3-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="3-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="3-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="3-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="3-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="3-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="4-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="4-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="4-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="4-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="4-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="4-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="4-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="4-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="4-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="5-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="5-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="5-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="5-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="5-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="5-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="5-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="5-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="5-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="6-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="6-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="6-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="6-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="6-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="6-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="6-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="6-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="6-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="7-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="7-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="7-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="7-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="7-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="7-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="7-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="7-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="7-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="8-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="8-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="8-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="8-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="8-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="8-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="8-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="8-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="8-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="loader" style="z-index: 2; position: fixed; display: flex; justify-content:center; background-color:rgba(57, 65, 82, 0.9);border-radius:10px;padding:10px;display:none;">
+			<div class="loader"></div>
+		</div>
+		<div id="solutionTable" class="solutionTable" style="z-index:1; display:none; width:500px;height:500px; margin-left: 20px;  padding:5px; background-color: white;">
+			<table>
+				<tr>
+					<td id="9-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="9-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="9-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="9-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="9-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="9-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="9-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="9-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="9-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="10-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="10-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="10-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="10-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="10-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="10-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="10-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="10-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="10-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="11-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="11-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="11-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="11-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="11-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="11-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="11-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="11-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="11-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="12-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="12-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="12-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="12-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="12-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="12-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="12-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="12-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="12-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="13-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="13-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="13-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="13-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="13-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="13-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="13-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="13-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="13-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="14-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="14-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="14-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="14-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="14-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="14-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="14-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="14-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="14-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="15-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="15-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="15-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="15-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="15-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="15-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="15-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="15-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="15-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="16-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="16-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="16-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="16-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="16-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="16-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="16-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="16-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="16-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+				<tr>
+					<td id="17-0">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="17-1">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="17-2">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="17-3">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="17-4">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="17-5">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="17-6">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="17-7">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+					<td id="17-8">
+						<input type="text" min="1" max="9" class="input-text" maxlength="1">
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="board-buttons text-center">
+		<button style="z-index:1;" class="custom-btn" onclick="showChoice('id03')">Start new puzzle</button>
+		<button id="restart-btn" class="custom-btn" onclick="showChoice('id02')">Restart Puzzle</button>
+		<button id="submit-btn" style="background-color: #74D3BB; color: white; font-weight: 500;" class="custom-btn" onclick="showChoice('id04')">Submit Puzzle</button>
+	</div>
+	
+	<!-- Trigger/Open the Modal -->
+	<!-- <button onclick="showInstructions()" class="w3-button">Instructions</button> -->
+		<div class="text-center" style="margin-top: 0px;">
+			<a id="howToPlay" href="#" style="color:white;font-size: 1.6rem; margin-top:20px;" onclick="showInstructions()">How to play</a>
+		</div>
+		
+		<!-- The Modal -->
+		<div id="id01" class="w3-modal" >
+			<div id="modal-view" class="w3-modal-content w3-animate-top" >
+				<div class="w3-container">
+					<span onclick="document.getElementById('id01').style.display='none'" 
+					class="w3-button w3-display-topright">&times;</span>
+					<h2 class="text-center" style="margin-bottom: 30px;font-weight: 100;">Welcome to <b style="font-weight: 600; color: #7FEBD0; ">Bright</b>Sudoku!</h2>
+					<p class="text-center">The goal of Sudoku is to fill in a 9×9 grid with digits so that each column, row, and 3×3 section contain the numbers between 1 to 9. At the beginning of the game, the 9×9 grid will have some of the squares filled in. Your job is to use logic to fill in the missing digits and complete the grid. Don’t forget, a move is incorrect if:</p>
+					<ul style="margin:20px 0px;">
+						<li>Any row contains more than one of the same number from 1 to 9</li>
+						<li>Any column contains more than one of the same number from 1 to 9</li>
+						<li>Any 3×3 grid contains more than one of the same number from 1 to 9</li>
+					</ul>
+					<div class="text-center" style="margin-bottom: 30px;">
+						<button  onclick="document.getElementById('id01').style.display='none'" style="background-color: #74D3BB; color: white; font-weight: 500;width:150px;height: 50px;" class="custom-btn">Start Playing</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<!-- yes or no -->
+		<div id="id02" class="w3-modal">
+			<div id="modal-view" class="w3-modal-content w3-animate-top">
+				<div class="w3-container">
+					<span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+					<h2 class="text-center" style="margin-bottom: 30px;font-weight: 100;">Are you sure you want to Restart?</h2>
+					
+					<div class="text-center" style="margin-bottom: 30px; display: flex;justify-content:center;">
+						<button onclick="restartPuzzle('yes');" style="margin-right: 5px; background-color: #74D3BB; color: white; font-weight: 500;width:150px;height: 50px;"
+						class="custom-btn">Yes</button>
+						<button onclick="restartPuzzle('no');" style="margin-left: 5px;background-color: #74D3BB; color: white; font-weight: 500;width:150px;height: 50px;"
+						class="custom-btn">No</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<!-- yes or no start new -->
+		<div id="id03" class="w3-modal">
+			<div id="modal-view" class="w3-modal-content w3-animate-top">
+				<div class="w3-container">
+					<span onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+					<h2 class="text-center" style="margin-bottom: 30px;font-weight: 100;">Are you sure you want to start a new puzzle?</h2>
+					
+					<div class="text-center" style="margin-bottom: 30px; display: flex;justify-content:center;">
+						<button onclick="startNewPuzzle();" style="margin-right: 5px; background-color: #74D3BB; color: white; font-weight: 500;width:150px;height: 50px;"
+						class="custom-btn">Yes</button>
+						<button onclick="document.getElementById('id03').style.display='none'" style="margin-left: 5px;background-color: #74D3BB; color: white; font-weight: 500;width:150px;height: 50px;"
+						class="custom-btn">No</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<!-- yes or no submit -->
+		<div id="id04" class="w3-modal">
+			<div id="modal-view" class="w3-modal-content w3-animate-top">
+				<div class="w3-container">
+					<span onclick="document.getElementById('id04').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+					<h2 class="text-center" style="margin-bottom: 30px;font-weight: 100;">Are you sure you want to submit puzzle?</h2>
+					
+					<div class="text-center" style="margin-bottom: 30px; display: flex;justify-content:center;">
+						<button onclick="checkSolution();" style="margin-right: 5px; background-color: #74D3BB; color: white; font-weight: 500;width:150px;height: 50px;"
+						class="custom-btn">Yes</button>
+						<button onclick="document.getElementById('id04').style.display='none'" style="margin-left: 5px;background-color: #74D3BB; color: white; font-weight: 500;width:150px;height: 50px;"
+						class="custom-btn">No</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+	<script src="script.js"></script>
+		<script src="confetti.js"></script>
+		<script src="tests.js"></script>
+		
+		
+		
+		
+	</body>
+	</html>
